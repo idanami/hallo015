@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+button:disabled {
+    cursor: default;
+}

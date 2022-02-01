@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.header {
+  width: 100vw;
+  height: 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: #c0c0c0;
+}
+.header a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.6rem;
+}
+.header .home-nav {
+  font-weight: bold;
+}
+.header .header__nav {
+  width: 70%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
