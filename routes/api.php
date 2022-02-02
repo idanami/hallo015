@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(JobsController::class)->group(function () {
-    Route::get('/getPersonWithHighestSalary', 'getPersonWithHighestSalary');
+    Route::get('/getPersonWithHighestSalary/{job}', 'getPersonWithHighestSalary');
     Route::get('/getJobsAndAverageSalary', 'getJobsAndAverageSalary');
-    Route::get('/getJobsByPupularity', 'getJobsByPupularity');
-    Route::post('/addNewRow','');
+    Route::get('/getJobsByPopularity', 'getJobsByPupularity');
+    Route::post('/addNewRowOrUpdate','addNewRowOrUpdate');
 });

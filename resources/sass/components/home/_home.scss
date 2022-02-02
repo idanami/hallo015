@@ -1,0 +1,14 @@
+.home-container {
+    min-height: 100vh;
+    max-width: 60rem;
+    margin: 4rem auto;
+
+    section {
+        display: flex;
+        flex-direction: column;
+        padding-top: 2rem;
+        margin-bottom: 3.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+}

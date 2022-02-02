@@ -1,0 +1,13 @@
+.footer {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $myGray;
+
+    a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+}

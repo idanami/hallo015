@@ -4,8 +4,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
-    background: $mySilver;
+    z-index: 21;
+    background: $myLightBlue;
 
     a {
         text-decoration: none;
@@ -18,11 +18,10 @@
     }
 
     .header__nav {
-        width: 70%;
         margin: 0 auto;
         height: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
     }
 }

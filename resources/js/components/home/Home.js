@@ -1,19 +1,16 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
+import JobPopularityBarChart from "../chart/Chart";
+import JobAvgHeightSalaryName from "../table/JobAvgHeightSalaryName";
 
-const Home = () => {
-
-    useEffect(() => {
-        const resOption = axios.get('/api/getPersonWithHighestSalary')
-                          .then(res => {
-                              console.log(res.data.highestSalary)
-                          });
-    }, [])
-    
-    return (
-        <div>
-        </div>
-    )
-};
+const Home = () => (
+    <div className="home-container">
+        <section className="table-container">
+            <JobAvgHeightSalaryName />
+        </section>
+        <section>
+            <JobPopularityBarChart />
+        </section>
+    </div>
+)
 
 export default Home;

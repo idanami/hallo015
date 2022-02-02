@@ -8,14 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
-    public function getPersonWithHighestSalary(){
+    public function getPersonWithHighestSalary($job){
         // sql query get person with highest salary by job
-        $sql = 'SELECT name FROM `jobs` WHERE salary IN
-                (SELECT MAX(salary) FROM jobs GROUP BY job)';
+        $sql = "SELECT name FROM `jobs` WHERE job = ? ORDER BY Salary DESC LIMIT 1";
 
-        $highestSalary = DB::select($sql);
-        // return name with highest salary by job
-        return response()->json(['highestSalary' => $highestSalary]);
+        $highestSalary = DB::select($sql,[$job]);
+        // // return name with highest salary by job
+        return response()->json([
+            'status' => 200,
+            'highestSalary' => $highestSalary
+        ]);
     }
 
     public function getJobsAndAverageSalary(){
@@ -25,17 +27,63 @@ class JobsController extends Controller
         $jobsAndAvgSalary = DB::select($sql);
 
         // return jobs and avrage salary
-        return response()->json($jobsAndAvgSalary);
+        // return $jobsAndAvgSalary;
+        return response()->json([
+            'status' => 200,
+            'jobsAndAvgSalary' => $jobsAndAvgSalary
+        ]);
     }
 
     public function getJobsByPupularity(){
         // sql query get jobs by pupularity
-        $sql = 'SELECT job, COUNT(*) as pupularity FROM `jobs` GROUP BY job DESC';
+        $sql = 'SELECT job as jobName, COUNT(*) as popularity FROM `jobs` GROUP BY job DESC';
 
-        $jobsByPupularity = DB::select($sql);
+        $jobsByPopularity = DB::select($sql);
 
         // return jobs by pupularity
-        return response()->json($jobsByPupularity);
+        return response()->json([
+            'status' => 200,
+            'jobsByPopularity' => $jobsByPopularity
+        ]);
+    }
 
+    public function addNewRowOrUpdate(Request $request){
+        if($request->name){
+            $name = $request->name;
+            $isNameExist = Jobs::where('name', '=', $name)->get();
+            // is_int($request->salary);
+            if(count($isNameExist) > 0){
+                if($request->job || is_int($request->salary)){
+                    $job = $request->job !== null ? $request->job : null;
+                    $salary = $request->salary !== null ? $request->salary : null;
+                    if($job !== null && $salary !== null){
+                        Jobs::where('name', '=', $name)->update([
+                            'job' => $job,
+                            'salary' => $salary
+                        ]);
+                    }
+                    if($job === null && $salary !== null){
+                        Jobs::where('name', '=', $name)->update([
+                            'salary' => $salary
+                        ]);
+                    }
+                    if($job !== null && $salary === null){
+                        Jobs::where('name', '=', $name)->update([
+                            'job' => $job,
+                        ]);
+                    }
+                }
+                return 'Update successfully';
+            }
+            if($request->job && is_int($request->salary)){
+                $newJob = new Jobs();
+                $newJob->name = $name;
+                $newJob->job = $request->job;
+                $newJob->salary = $request->salary;
+                $newJob->save();
+
+                return 'New Row Added';
+            }
+        }
     }
 }
